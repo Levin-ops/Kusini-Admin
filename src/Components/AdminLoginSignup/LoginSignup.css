@@ -1,0 +1,136 @@
+.loginsignup {
+  width: 100%;
+  height: 80vh;
+  background: #f8f8f8;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginsignup_container {
+  width: 100%;
+  max-width: 580px;
+  height: auto;
+  background: white;
+  padding: 40px 60px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loginsignup_container h1 {
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+.loginsignup_fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.loginsignup_fields input {
+  height: 44px;
+  width: 95%;
+  padding-left: 20px;
+  border: 1px solid #c9c9c9;
+  outline: none;
+  color: #5c5c5c;
+  font-size: 18px;
+}
+
+.loginsignup_container button {
+  width: 100%;
+  height: 52px;
+  color: white;
+  background: #b07506;
+  margin-top: 20px;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.loginsignup_login {
+  margin-top: 20px;
+  color: #5c5c5c;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.loginsignup_login span {
+  color: #b07506;
+  font-weight: 600;
+}
+
+.loginsignup_agree {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  gap: 20px;
+  color: #5c5c5c;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .loginsignup_container {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .loginsignup_container h1 {
+    font-size: 20px;
+  }
+
+  .loginsignup_fields input {
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .loginsignup_container button {
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .loginsignup_login {
+    font-size: 16px;
+  }
+
+  .loginsignup_agree {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loginsignup {
+    padding-top: 50px;
+  }
+
+  .loginsignup_container {
+    padding: 15px;
+  }
+
+  .loginsignup_container h1 {
+    font-size: 18px;
+  }
+
+  .loginsignup_fields input {
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .loginsignup_container button {
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .loginsignup_login {
+    font-size: 14px;
+  }
+
+  .loginsignup_agree {
+    font-size: 14px;
+  }
+}

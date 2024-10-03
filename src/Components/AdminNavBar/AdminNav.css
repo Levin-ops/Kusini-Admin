@@ -1,0 +1,38 @@
+.admin_navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 60px;
+  box-sizing: 0 1px 3px -2px #000;
+  margin-bottom: 1px;
+  background: white;
+}
+
+.admin_navbar button {
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  padding: 0 20px;
+  background: black;
+  color: white;
+}
+
+.admin_nav_logo {
+  width: 200px;
+}
+
+.admin_nav_profile {
+  font-size: 28px;
+}
+
+@media (max-width: 800px) {
+  .admin_navbar {
+    padding: 15px 30px;
+  }
+  .admin_nav_logo {
+    width: 150px;
+  }
+  .admin_nav_profile {
+    font-size: 20px;
+  }
+}
