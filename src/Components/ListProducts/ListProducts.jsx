@@ -6,7 +6,9 @@ function ListProducts() {
   const [allProducts, setAllProducts] = useState([]);
 
   const fetchInfo = async () => {
-    const response = await fetch("http://localhost:4000/allproducts");
+    const response = await fetch(
+      "https://kusini-backend-1.onrender.com/allproducts"
+    );
     const data = await response.json();
     setAllProducts(data);
   };
@@ -16,7 +18,7 @@ function ListProducts() {
   }, []);
 
   const removeProduct = async (id) => {
-    await fetch("http://localhost:4000/deleteproduct", {
+    await fetch("https://kusini-backend-1.onrender.com/deleteproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -28,7 +30,7 @@ function ListProducts() {
   };
 
   const toggleAvailability = async (id) => {
-    await fetch("http://localhost:4000/toggleavailability", {
+    await fetch("https://kusini-backend-1.onrender.com/toggleavailability", {
       method: "POST",
       headers: {
         Accept: "application/json",
