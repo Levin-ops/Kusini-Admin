@@ -1,14 +1,10 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
+  base: "/", // Make sure the base path is root
   plugins: [react()],
   build: {
-    outDir: "docs",
-  },
-  server: {
-    historyApiFallback: true,
+    outDir: "docs", // GitHub Pages expects the output in 'docs'
   },
 });
