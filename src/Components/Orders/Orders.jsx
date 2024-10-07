@@ -35,7 +35,7 @@ function Orders() {
         ? "Cancelled"
         : "Pending";
 
-    await fetch("http://localhost:4000/updateOrderStatus", {
+    await fetch("https://kusini-backend-1.onrender.com/updateOrderStatus", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -22,13 +22,17 @@ function AddProducts() {
   };
 
   const addProduct = async () => {
-    // console.log(productDetails);
-    let responseData;
-    let product = productDetails;
+    // Automatically set product level based on price
+    let price = parseFloat(productDetails.price);
+    let level = price >= 4000 ? "Top Shelf" : "Standard";
+
+    // Update product details with determined level
+    let product = { ...productDetails, level };
 
     let formData = new FormData();
     formData.append("product", image);
 
+    let responseData;
     await fetch("https://kusini-backend-1.onrender.com/upload", {
       method: "POST",
       headers: {
@@ -40,9 +44,9 @@ function AddProducts() {
       .then((data) => {
         responseData = data;
       });
+
     if (responseData.success) {
       product.image = responseData.image_url;
-      // console.log(product);
       await fetch("https://kusini-backend-1.onrender.com/addproduct", {
         method: "POST",
         headers: {
@@ -53,8 +57,15 @@ function AddProducts() {
       })
         .then((response) => response.json())
         .then((data) => {
-          data.success ? alert("Product Added") : alert("Failed");
+          if (data.success) {
+            alert("Product Added");
+            window.location.reload(); // Refresh the page on success
+          } else {
+            alert("Failed to add product");
+          }
         });
+    } else {
+      alert("Image upload failed");
     }
   };
 
@@ -109,18 +120,6 @@ function AddProducts() {
           <option value="whisky">Whisky</option>
           <option value="wine">Wine</option>
           <option value="others">Others</option>
-        </select>
-      </div>
-      <div className="add_product_item_fields">
-        <p>Drink Level</p>
-        <select
-          value={productDetails.level}
-          onChange={changeHandler}
-          name="level"
-          className="add_product_selection"
-        >
-          <option value="Top Shelf">Top Shelf</option>
-          <option value="Standard">Standard</option>
         </select>
       </div>
       <div className="add_product_item_fields">
