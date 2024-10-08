@@ -6,7 +6,9 @@ function Orders() {
   const [allOrders, setAllOrders] = useState([]);
 
   const fetchOrders = async () => {
-    const response = await fetch("http://localhost:4000/allorders");
+    const response = await fetch(
+      "https://kusini-backend-1.onrender.com/allorders"
+    );
     const data = await response.json();
     setAllOrders(data);
   };
@@ -16,7 +18,7 @@ function Orders() {
   }, []);
 
   const removeOrder = async (orderId) => {
-    await fetch("http://localhost:4000/deleteorder", {
+    await fetch("https://kusini-backend-1.onrender.com/deleteorder", {
       method: "POST",
       headers: {
         Accept: "application/json",
