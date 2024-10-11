@@ -54,7 +54,6 @@ function ListProducts() {
         <p style={{ textAlign: "center" }}>Product</p>
         <p style={{ textAlign: "center" }}>Name</p>
         <p style={{ textAlign: "center" }}>Price</p>
-        <p style={{ textAlign: "center" }}>Status</p>
         <p style={{ textAlign: "center" }}>Availability</p>
         <p style={{ textAlign: "center" }}>Remove</p>
       </div>
@@ -69,9 +68,6 @@ function ListProducts() {
             <p style={{ textAlign: "center" }}>{product.name}</p>
             <p style={{ textAlign: "center" }}>KSh.{product.price}</p>
 
-            <p style={{ textAlign: "center" }}>
-              {product.available ? "Available" : "Unavailable"}
-            </p>
             <button
               className={`list_products_toggle_button ${
                 product.available ? "available" : "unavailable"
