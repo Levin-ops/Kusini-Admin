@@ -11,7 +11,7 @@ function LoginSignup() {
 
   const login = async () => {
     let responseData;
-    await fetch("https://kusini-backend-1.onrender.com/login", {
+    await fetch("https://kusini-backend-1.onrender.com/admin/login", {
       method: "POST",
       headers: {
         Accept: "application/form-data",
@@ -33,7 +33,7 @@ function LoginSignup() {
 
   const signup = async () => {
     let responseData;
-    await fetch("https://kusini-backend-1.onrender.com/signup", {
+    await fetch("https://kusini-backend-1.onrender.com/admin/signup", {
       method: "POST",
       headers: {
         Accept: "application/form-data",

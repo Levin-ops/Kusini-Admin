@@ -12,7 +12,7 @@
 
 .orders_format_main {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 2.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
   gap: 10px;
   width: 100%;
   padding: 20px 0px;
@@ -23,7 +23,7 @@
 
 .orders_format {
   display: grid;
-  grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 2.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
   align-items: center;
   font-weight: 500;
 }
@@ -43,7 +43,7 @@
 @media (max-width: 800px) {
   .orders_container {
     box-sizing: border-box;
-    width: 90%;
+    width: 100%;
     height: auto;
     padding: 10px 30px;
     margin: 20px auto;
@@ -54,10 +54,26 @@
     padding: 15px 0px;
     color: #454545;
     font-size: 12px;
-    grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    grid-template-columns: 1.5fr 2.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
   }
 
   .orders_format {
-    grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
+    grid-template-columns: 1.5fr 2.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr;
   }
+
+  .orders_all_items {
+    overflow-y: auto;
+    width: 100%;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+  height: 40px;
+  width: 70px;
+  background: #b07506;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
 }

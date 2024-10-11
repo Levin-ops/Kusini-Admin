@@ -22,18 +22,20 @@ function AddProducts() {
   };
 
   const addProduct = async () => {
-    // Automatically set product level based on price
     let price = parseFloat(productDetails.price);
     let level = price >= 4000 ? "Top Shelf" : "Standard";
 
-    // Update product details with determined level
-    let product = { ...productDetails, level };
-
+    // Prepare form data to send product details and image
     let formData = new FormData();
-    formData.append("product", image);
+    formData.append("name", productDetails.name);
+    formData.append("price", productDetails.price);
+    formData.append("category", productDetails.category);
+    formData.append("description", productDetails.description);
+    formData.append("level", level);
+    formData.append("product", image); // append the image
 
-    let responseData;
-    await fetch("https://kusini-backend-1.onrender.com/upload", {
+    // Send product details along with the image to the /addproduct endpoint
+    await fetch("https://kusini-backend-1.onrender.com/products/addproduct", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -42,31 +44,13 @@ function AddProducts() {
     })
       .then((response) => response.json())
       .then((data) => {
-        responseData = data;
+        if (data.success) {
+          alert("Product Added");
+          window.location.reload();
+        } else {
+          alert("Failed to add product");
+        }
       });
-
-    if (responseData.success) {
-      product.image = responseData.image_url;
-      await fetch("https://kusini-backend-1.onrender.com/addproduct", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(product),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            alert("Product Added");
-            window.location.reload(); // Refresh the page on success
-          } else {
-            alert("Failed to add product");
-          }
-        });
-    } else {
-      alert("Image upload failed");
-    }
   };
 
   return (

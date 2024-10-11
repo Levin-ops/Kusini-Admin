@@ -7,7 +7,7 @@ function ListProducts() {
 
   const fetchInfo = async () => {
     const response = await fetch(
-      "https://kusini-backend-1.onrender.com/allproducts"
+      "https://kusini-backend-1.onrender.com/products/allproducts"
     );
     const data = await response.json();
     setAllProducts(data);
@@ -18,26 +18,32 @@ function ListProducts() {
   }, []);
 
   const removeProduct = async (id) => {
-    await fetch("https://kusini-backend-1.onrender.com/deleteproduct", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }),
-    });
+    await fetch(
+      "https://kusini-backend-1.onrender.com/products/deleteproduct",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
     await fetchInfo();
   };
 
   const toggleAvailability = async (id) => {
-    await fetch("https://kusini-backend-1.onrender.com/toggleavailability", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }),
-    });
+    await fetch(
+      "https://kusini-backend-1.onrender.com/products/toggleavailability",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
     await fetchInfo();
   };
 
@@ -45,13 +51,12 @@ function ListProducts() {
     <div className="list_products">
       <h1>All Product List</h1>
       <div className="list_products_format_main">
-        <p>Product</p>
-        <p>Name</p>
-        <p>Price</p>
-        <p>Category</p>
-        <p>Status</p>
-        <p>Remove</p>
-        <p>Toggle Availability</p>
+        <p style={{ textAlign: "center" }}>Product</p>
+        <p style={{ textAlign: "center" }}>Name</p>
+        <p style={{ textAlign: "center" }}>Price</p>
+        <p style={{ textAlign: "center" }}>Status</p>
+        <p style={{ textAlign: "center" }}>Availability</p>
+        <p style={{ textAlign: "center" }}>Remove</p>
       </div>
       <div className="list_products_all_products">
         <hr />
@@ -61,16 +66,12 @@ function ListProducts() {
             className="list_products_format_main list_products_format"
           >
             <img className="list_products_icon" src={product.image} alt="" />
-            <p>{product.name}</p>
-            <p>KSh.{product.price}</p>
-            <p>{product.category}</p>
-            <p>{product.available ? "Available" : "Unavailable"}</p>
-            <img
-              className="list_products_remove_icon"
-              src={removeIcon}
-              alt="Remove"
-              onClick={() => removeProduct(product.id)}
-            />
+            <p style={{ textAlign: "center" }}>{product.name}</p>
+            <p style={{ textAlign: "center" }}>KSh.{product.price}</p>
+
+            <p style={{ textAlign: "center" }}>
+              {product.available ? "Available" : "Unavailable"}
+            </p>
             <button
               className={`list_products_toggle_button ${
                 product.available ? "available" : "unavailable"
@@ -79,6 +80,12 @@ function ListProducts() {
             >
               {product.available ? "In Stock" : "Out of Stock"}
             </button>
+            <img
+              className="list_products_remove_icon"
+              src={removeIcon}
+              alt="Remove"
+              onClick={() => removeProduct(product.id)}
+            />
           </div>
         ))}
         <hr />
