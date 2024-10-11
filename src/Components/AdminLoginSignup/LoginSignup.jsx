@@ -47,7 +47,7 @@ function LoginSignup() {
     if (responseData.success) {
       alert("Signup Successfull");
       localStorage.setItem("auth-token", responseData.token);
-      window.location.replace("/");
+      window.location.replace("/admin");
     } else {
       alert(responseData.error);
     }
