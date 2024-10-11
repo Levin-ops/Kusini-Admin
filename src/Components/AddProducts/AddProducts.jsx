@@ -6,6 +6,7 @@ function AddProducts() {
   const [image, setImage] = useState(false);
   const [productDetails, setProductDetails] = useState({
     name: "",
+    code: "",
     image: "",
     price: "",
     category: "",
@@ -31,8 +32,9 @@ function AddProducts() {
     formData.append("price", productDetails.price);
     formData.append("category", productDetails.category);
     formData.append("description", productDetails.description);
+    formData.append("description", productDetails.code);
     formData.append("level", level);
-    formData.append("product", image); // append the image
+    formData.append("product", image);
 
     // Send product details along with the image to the /addproduct endpoint
     await fetch("https://kusini-backend-1.onrender.com/products/addproduct", {
@@ -74,6 +76,16 @@ function AddProducts() {
             onChange={changeHandler}
             name="price"
             placeholder="Enter Price"
+          />
+        </div>
+        <div className="add_product_item_fields">
+          <p>Code</p>
+          <input
+            type="text"
+            value={productDetails.price}
+            onChange={changeHandler}
+            name="code"
+            placeholder="Enter Code"
           />
         </div>
       </div>
