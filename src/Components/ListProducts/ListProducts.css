@@ -57,6 +57,19 @@
   background-color: red;
 }
 
+.search_container {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.search_input {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
 @media (max-width: 800px) {
   .list_products {
     box-sizing: border-box;
@@ -74,5 +87,14 @@
 
   .list_products_icon {
     height: 60px;
+  }
+  .list_products_toggle_button {
+    width: 100%;
+    padding: 4px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
   }
 }

@@ -10,7 +10,12 @@ function Orders() {
       "https://kusini-backend-1.onrender.com/orders/allorders"
     );
     const data = await response.json();
-    setAllOrders(data);
+
+    // Sort orders by createdAt in descending order (latest first)
+    const sortedOrders = data.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+    setAllOrders(sortedOrders);
   };
 
   useEffect(() => {
