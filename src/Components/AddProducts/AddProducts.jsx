@@ -82,7 +82,7 @@ function AddProducts() {
           <p>Code</p>
           <input
             type="text"
-            value={productDetails.price}
+            value={productDetails.code}
             onChange={changeHandler}
             name="code"
             placeholder="Enter Code"
