@@ -107,6 +107,7 @@ function AddProducts() {
           name="category"
           className="add_product_selection"
         >
+          <option value="">Select</option>
           <option value="beer">Beer</option>
           <option value="brandy">Brandy</option>
           <option value="gin">Gin</option>
