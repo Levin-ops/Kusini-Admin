@@ -82,8 +82,15 @@ function Orders() {
             <p style={{ textAlign: "center" }}>{order.location}</p>
             <p style={{ textAlign: "center" }}>KSh.{order.totalAmount}</p>
             <p style={{ textAlign: "center" }}>{order.paymentStatus}</p>
-            <button onClick={() => updateOrderStatus(order._id, order.status)}>
-              {order.status === "Pending" ? "Delivered" : "Pending"}
+            <button
+              className={
+                order.status === "Pending"
+                  ? "pending-button"
+                  : "delivered-button"
+              }
+              onClick={() => updateOrderStatus(order._id, order.status)}
+            >
+              {order.status}
             </button>
             {/* <img
               className="orders_remove_icon"
