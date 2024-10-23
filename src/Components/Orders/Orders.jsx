@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Orders.css";
-import removeIcon from "../../Assets/cart_cross_icon.png";
+import { io } from "socket.io-client";
 
 function Orders() {
   const [allOrders, setAllOrders] = useState([]);
+  const [newOrderNotification, setNewOrderNotification] = useState(false);
 
   const fetchOrders = async () => {
     const response = await fetch(
@@ -20,6 +21,21 @@ function Orders() {
 
   useEffect(() => {
     fetchOrders();
+
+    // Initialize socket connection
+    const socket = io("https://kusini-backend-1.onrender.com");
+
+    // Listen for 'new-order' event from the server
+    socket.on("new-order", (newOrder) => {
+      setNewOrderNotification(true);
+      setAllOrders((prevOrders) => [newOrder, ...prevOrders]);
+    });
+
+    // Cleanup on component unmount
+    return () => {
+      socket.off("new-order");
+      socket.disconnect();
+    };
   }, []);
 
   const removeOrder = async (orderId) => {
@@ -55,6 +71,17 @@ function Orders() {
   return (
     <div className="orders_container">
       <h1>All Orders List</h1>
+
+      {/* Notification for new order */}
+      {newOrderNotification && (
+        <div className="new-order-notification">
+          <p>New order received!</p>
+          <button onClick={() => setNewOrderNotification(false)}>
+            Dismiss
+          </button>
+        </div>
+      )}
+
       <div className="orders_format_main">
         <p style={{ textAlign: "center" }}>Phone No.</p>
         <p style={{ textAlign: "center" }}>Products</p>
@@ -92,12 +119,6 @@ function Orders() {
             >
               {order.status}
             </button>
-            {/* <img
-              className="orders_remove_icon"
-              src={removeIcon}
-              alt="Remove"
-              onClick={() => removeOrder(order._id)}
-            /> */}
           </div>
         ))}
         <hr />
