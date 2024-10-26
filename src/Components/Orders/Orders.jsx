@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Orders.css";
-import { io } from "socket.io-client";
 
 function Orders() {
   const [allOrders, setAllOrders] = useState([]);
-  const [newOrderNotification, setNewOrderNotification] = useState(false);
+  const [prevOrders, setPrevOrders] = useState([]);
+  const [newOrderIDs, setNewOrderIDs] = useState([]);
 
   const fetchOrders = async () => {
     const response = await fetch(
@@ -16,26 +16,36 @@ function Orders() {
     const sortedOrders = data.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
     );
+
+    // Identify newly fetched orders by filtering out previous orders
+    const newOrders = sortedOrders.filter(
+      (order) => !prevOrders.some((prevOrder) => prevOrder._id === order._id)
+    );
+
+    // Update newOrderIDs without adding orders already delivered
+    setNewOrderIDs((prevIDs) => [
+      ...prevIDs,
+      ...newOrders
+        .map((order) => order._id)
+        .filter(
+          (id) =>
+            !prevIDs.includes(id) &&
+            sortedOrders.find((order) => order._id === id).status !==
+              "Delivered"
+        ),
+    ]);
+
+    setPrevOrders(sortedOrders);
     setAllOrders(sortedOrders);
   };
 
   useEffect(() => {
     fetchOrders();
 
-    // Initialize socket connection
-    const socket = io("https://kusini-backend-1.onrender.com");
-
-    // Listen for 'new-order' event from the server
-    socket.on("new-order", (newOrder) => {
-      setNewOrderNotification(true);
-      setAllOrders((prevOrders) => [newOrder, ...prevOrders]);
-    });
-
-    // Cleanup on component unmount
-    return () => {
-      socket.off("new-order");
-      socket.disconnect();
-    };
+    const intervalID = setInterval(() => {
+      fetchOrders();
+    }, 300);
+    return () => clearInterval(intervalID); // clear the interval when component unmounts
   }, []);
 
   const removeOrder = async (orderId) => {
@@ -66,21 +76,16 @@ function Orders() {
     );
 
     await fetchOrders();
+
+    // If the new status is "Delivered", remove it from newOrderIDs
+    if (newStatus === "Delivered") {
+      setNewOrderIDs((prevIDs) => prevIDs.filter((id) => id !== orderId));
+    }
   };
 
   return (
     <div className="orders_container">
       <h1>All Orders List</h1>
-
-      {/* Notification for new order */}
-      {newOrderNotification && (
-        <div className="new-order-notification">
-          <p>New order received!</p>
-          <button onClick={() => setNewOrderNotification(false)}>
-            Dismiss
-          </button>
-        </div>
-      )}
 
       <div className="orders_format_main">
         <p style={{ textAlign: "center" }}>Phone No.</p>
@@ -94,13 +99,18 @@ function Orders() {
       <div className="orders_all_items">
         <hr />
         {allOrders.map((order) => (
-          <div key={order._id} className="orders_format">
+          <div
+            key={order._id}
+            className={`orders_format ${
+              newOrderIDs.includes(order._id) ? "new-order" : ""
+            }`}
+          >
             <p>{order.customer.phoneNumber}</p>
             <p>
               {order.items.map((item) => (
-                <div key={item.productId}>
+                <span key={item.productId}>
                   {item.name} (x{item.quantity})
-                </div>
+                </span>
               ))}
             </p>
             <p style={{ textAlign: "center" }}>

@@ -139,3 +139,8 @@ button:hover {
     padding: 5px 10px;
   }
 }
+
+.new-order {
+  background-color: #e0ffe0; /* Light green background for new orders */
+  border: 1px solid #50c878; /* Green border for emphasis */
+}
